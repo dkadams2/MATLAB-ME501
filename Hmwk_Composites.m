@@ -56,4 +56,15 @@ deltaY_4 = 60*StrainMat_4(2); Yf = 60+deltaY_4;
 deltaZ_4 = 60*StrainMat_4(3); Zf = 60+deltaZ_4;
 
 %% C5
+%Properties
+E1_5 = 155e9; E2_5 = 12.1e9; G23_5 = 3.2e9; G12_5 = 4.4e9;
+Nu23_5 = .458; Nu12_5 = .248; G13_5 = G12_5; Nu13_5 = Nu12_5; E3_5 = E2_5;
+length = .2; width = .1; thick = .0002; F = 4000;
+sigma1_5 = F/(width*thick); %N/m^2
+StressMat_5 = [sigma1_5; 0; 0; 0; 0; 0];
+S_5 = S_mat(E1_5, E2_5, E3_5, Nu23_5, Nu13_5, Nu12_5, G23_5, G13_5, G12_5);
+%Calculate Strain Mat
+StrainMat_5 = S_5*StressMat_5;
+epsilon3_5 = StrainMat_5(3);
 
+%% C6
