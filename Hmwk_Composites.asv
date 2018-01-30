@@ -72,15 +72,14 @@ epsilon3_5 = StrainMat_5(3);
 E1_6 = 155e9; E2_6 = 12.1e6; G23_6 = 3.2e9; G12_6 = 4.4e9;
 Nu23_6 = .458; Nu12_6 = .248; G13_6 = G12_6; Nu13_6 = Nu12_6; E3_6 = E2_6;
 thick = .0005; eps_xo = 400e-6; eps_yo = 0; gamm_xyo = 0; kxo = 0; kyo = 0; kxyo = 0;
-epso_mat = [eps_xo; eps_yo; gamm_xyo]; z = [-2*thick, -thick,0,thick, 2*thick];
+epso_mat = [eps_xo; eps_yo; gamm_xyo]; z = [-2*thick, -thick, thick, 2*thick];
 Nu21_6 = E2_6*Nu12_6/E1_6;
 %(a) Solve for strain components at interface locations (three interface
 %locations
-for i = 1:(3)
-eps_x(i) = eps_xo+z(i+1)*kxo; %should be z*kxo, but kxo is 0 so z doesn't matter
-eps_y(i) = eps_yo+z(i+1)*kyo; %should be z*kyo, but kxo is 0 so z doesn't matter
-gamm_xy(i) = gamm_xyo+z(i+1)*kxyo; %should be z*kxyo, but kxo is 0 so z doesn't matter
-end
+for i = 1:length(z)-1
+eps_x(i) = eps_xo+z(2kxo; %should be z*kxo, but kxo is 0 so z doesn't matter
+eps_y = eps_yo+kyo; %should be z*kyo, but kxo is 0 so z doesn't matter
+gamm_xy = gamm_xyo+kxyo; %should be z*kxyo, but kxo is 0 so z doesn't matter
 
 %(b) Solve for the stress in each layer and plot
 %Solve for Qbar matrices

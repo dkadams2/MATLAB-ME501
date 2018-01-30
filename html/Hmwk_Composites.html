@@ -1,0 +1,181 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Hmwk_Composites</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-01-25"><meta name="DC.source" content="Hmwk_Composites.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">C1</a></li><li><a href="#3">C2</a></li><li><a href="#4">C3</a></li><li><a href="#5">C4</a></li><li><a href="#6">C5</a></li></ul></div><pre class="codeinput"><span class="comment">%Derrik Adams</span>
+<span class="comment">%1/31/18</span>
+<span class="comment">%Composite Homework</span>
+clear <span class="string">all</span>
+</pre><h2>C1<a name="2"></a></h2><pre class="codeinput"><span class="comment">%Define given properties in GPa for moduli</span>
+Em = 4.62; Ef1 = 233; Ef2 = 23.1; Gf12 = 8.96; Gf23 = 8.27;
+Num = .36; Nuf12 = .2; Nuf23 = .4; Vf = .6; Vm = 1-Vf;
+<span class="comment">%Do I need to calculate Gm since it's not given? Gm = Em/(2*(1+Num));</span>
+<span class="comment">%Calculate the requested values using RoM</span>
+E1 = Ef1*Vf+Em*Vm;
+Nu12 = Num*Vm+Nuf12*Vf;
+E2 = (Ef1*Em)/(Vm*Ef1+Vf*Em);
+G12 = (Gf12*Gf23)/(Vm*Gf12+Vf*Gf23);
+</pre><h2>C2<a name="3"></a></h2><pre class="codeinput"><span class="comment">%Using the same values as C1, plot them with varying Vf</span>
+Vf = 0:.1:1;
+<span class="keyword">for</span> i=1:length(Vf)
+    Vm = 1-Vf(i);
+    E1_plot(i) = Ef1*Vf(i)+Em*Vm;
+    Nu12_plot(i) = Num*Vm+Nuf12*Vf(i);
+    E2_plot(i) = (Ef1*Em)/(Vm*Ef1+Vf(i)*Em);
+    G12_plot(i) = (Gf12*Gf23)/(Vm*Gf12+Vf(i)*Gf23);
+<span class="keyword">end</span>
+figure(1);plot(Vf,E1_plot);figure(2);plot(Vf,Nu12_plot);
+figure(3);plot(Vf,E2_plot);figure(4);plot(Vf,G12_plot);
+</pre><img vspace="5" hspace="5" src="Hmwk_Composites_01.png" alt=""> <img vspace="5" hspace="5" src="Hmwk_Composites_02.png" alt=""> <img vspace="5" hspace="5" src="Hmwk_Composites_03.png" alt=""> <img vspace="5" hspace="5" src="Hmwk_Composites_04.png" alt=""> <h2>C3<a name="4"></a></h2><pre class="codeinput"><span class="comment">%Define properties for this problem in Pa</span>
+E1_3 = 155e9; E2_3 = 12.1e9; G23_3 = 3.2e9; G12_3 = 4.4e9;
+Nu23_3 = .458; Nu12_3 = .248; G13_3 = G12_3; Nu13_3 = Nu12_3; E3_3 = E2_3;
+sigma2_3 = 100e3/(60e-3*60e-3); <span class="comment">%stress = f/a, in Pa</span>
+<span class="comment">%Define the Stress Matrix resulting from the applied load</span>
+StressMat_3 = [0;sigma2_3;0;0;0;0];
+<span class="comment">%Call function to compute the compliance matrix(S)</span>
+S_3 = S_mat(E1_3, E2_3, E3_3, Nu23_3, Nu13_3, Nu12_3, G23_3, G13_3, G12_3);
+StrainMat_3 = S_3*StressMat_3;
+<span class="comment">%Using Strain Matrix, calculate the changes in the x,y,z directions</span>
+deltaX_3 = 60*StrainMat_3(1); Xf = 60+deltaX_3;
+deltaY_3 = 60*StrainMat_3(2); Yf = 60+deltaY_3;
+deltaZ_3 = 60*StrainMat_3(3); Zf = 60+deltaZ_3;
+</pre><h2>C4<a name="5"></a></h2><pre class="codeinput"><span class="comment">%Try using the same approach but with aluminum, which is isotropic</span>
+StressMat_4 = StressMat_3;
+E1_4 = 72.4e9; E2_4 = E1_4; E3_4 = E1_4;
+Nu23_4 = .3; Nu13_4 = Nu23_4;  Nu12_4 = Nu23_4;
+G23_4 = E1_4/(2*(1+Nu23_4)); G13_4 = G23_4; G12_4 = G23_4;
+<span class="comment">%Calculate the compliance matrix(S)</span>
+S_4 = S_mat(E1_4, E2_4, E3_4, Nu23_4, Nu13_4, Nu12_4, G23_4, G13_4, G12_4);
+StrainMat_4 = S_4*StressMat_4;
+<span class="comment">%Using Strain Matrix, calculate the changes in the x,y,z directions</span>
+deltaX_4 = 60*StrainMat_4(1); Xf = 60+deltaX_4;
+deltaY_4 = 60*StrainMat_4(2); Yf = 60+deltaY_4;
+deltaZ_4 = 60*StrainMat_4(3); Zf = 60+deltaZ_4;
+</pre><h2>C5<a name="6"></a></h2><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%Derrik Adams
+%1/31/18
+%Composite Homework
+clear all
+%% C1
+%Define given properties in GPa for moduli
+Em = 4.62; Ef1 = 233; Ef2 = 23.1; Gf12 = 8.96; Gf23 = 8.27;
+Num = .36; Nuf12 = .2; Nuf23 = .4; Vf = .6; Vm = 1-Vf;
+%Do I need to calculate Gm since it's not given? Gm = Em/(2*(1+Num));
+%Calculate the requested values using RoM
+E1 = Ef1*Vf+Em*Vm;
+Nu12 = Num*Vm+Nuf12*Vf;
+E2 = (Ef1*Em)/(Vm*Ef1+Vf*Em);
+G12 = (Gf12*Gf23)/(Vm*Gf12+Vf*Gf23);
+
+%% C2
+%Using the same values as C1, plot them with varying Vf
+Vf = 0:.1:1;
+for i=1:length(Vf)
+    Vm = 1-Vf(i);
+    E1_plot(i) = Ef1*Vf(i)+Em*Vm;
+    Nu12_plot(i) = Num*Vm+Nuf12*Vf(i);
+    E2_plot(i) = (Ef1*Em)/(Vm*Ef1+Vf(i)*Em);
+    G12_plot(i) = (Gf12*Gf23)/(Vm*Gf12+Vf(i)*Gf23);
+end
+figure(1);plot(Vf,E1_plot);figure(2);plot(Vf,Nu12_plot);
+figure(3);plot(Vf,E2_plot);figure(4);plot(Vf,G12_plot);
+
+%% C3
+%Define properties for this problem in Pa
+E1_3 = 155e9; E2_3 = 12.1e9; G23_3 = 3.2e9; G12_3 = 4.4e9;
+Nu23_3 = .458; Nu12_3 = .248; G13_3 = G12_3; Nu13_3 = Nu12_3; E3_3 = E2_3;
+sigma2_3 = 100e3/(60e-3*60e-3); %stress = f/a, in Pa
+%Define the Stress Matrix resulting from the applied load
+StressMat_3 = [0;sigma2_3;0;0;0;0];
+%Call function to compute the compliance matrix(S)
+S_3 = S_mat(E1_3, E2_3, E3_3, Nu23_3, Nu13_3, Nu12_3, G23_3, G13_3, G12_3);
+StrainMat_3 = S_3*StressMat_3;
+%Using Strain Matrix, calculate the changes in the x,y,z directions
+deltaX_3 = 60*StrainMat_3(1); Xf = 60+deltaX_3;
+deltaY_3 = 60*StrainMat_3(2); Yf = 60+deltaY_3;
+deltaZ_3 = 60*StrainMat_3(3); Zf = 60+deltaZ_3;
+
+%% C4
+%Try using the same approach but with aluminum, which is isotropic
+StressMat_4 = StressMat_3;
+E1_4 = 72.4e9; E2_4 = E1_4; E3_4 = E1_4;
+Nu23_4 = .3; Nu13_4 = Nu23_4;  Nu12_4 = Nu23_4;
+G23_4 = E1_4/(2*(1+Nu23_4)); G13_4 = G23_4; G12_4 = G23_4;
+%Calculate the compliance matrix(S)
+S_4 = S_mat(E1_4, E2_4, E3_4, Nu23_4, Nu13_4, Nu12_4, G23_4, G13_4, G12_4);
+StrainMat_4 = S_4*StressMat_4;
+%Using Strain Matrix, calculate the changes in the x,y,z directions
+deltaX_4 = 60*StrainMat_4(1); Xf = 60+deltaX_4;
+deltaY_4 = 60*StrainMat_4(2); Yf = 60+deltaY_4;
+deltaZ_4 = 60*StrainMat_4(3); Zf = 60+deltaZ_4;
+
+%% C5
+
+
+##### SOURCE END #####
+--></body></html>
