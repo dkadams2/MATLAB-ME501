@@ -1,4 +1,4 @@
-function [allstress] = allstress(E1, E2, v12, v21, G12, theta, eps_xo, eps_yo, gamm_xyo, kxo,kyo, kxyo, z, numplies)
+function [allstress,allstrain,principalstress,principalstrain] = allstress(E1, E2, v12, v21, G12, theta, eps_xo, eps_yo, gamm_xyo, kxo,kyo, kxyo, z, numplies)
 
 %Compute all stresses in the composite for each layer at top and bottom. To
 %be helpful for plotting the stresses
@@ -9,13 +9,22 @@ for i=1:numplies
     %Compute Qbar for that ply
     Qbar = Qbar_mat(E1, E2, v12, v21, G12, theta(i));
     zmat = [z(i), z(i+1)];
+    Tprin = Principal_Trans_mat(theta(i));
     
     for j=1:2
         strain = [eps_xo+zmat(j)*kxo; eps_yo+zmat(j)*kyo; gamm_xyo+zmat(j)*kxyo];
         StrainValues(:,j) = strain;
         StressValues(:,j) = Qbar*strain;
     end
+    allstrain(:,i+count) = StrainValues(:,1);
+    principalstrain(:,i+count) = Tprin*StrainValues(:,1);
+    principalstrain(3,i+count) = principalstrain(3,i+count)*2;
+    allstrain(:,i+1+count) = StrainValues(:,2);
+    principalstrain(:,i+1+count) = Tprin*StrainValues(:,2);
+    principalstrain(3,i+1+count) = principalstrain(3,i+1+count)*2;
     allstress(:,i+count) = StressValues(:,1);
+    principalstress(:,i+count) = Tprin*StressValues(:,1);
     allstress(:,i+1+count) = StressValues(:,2);
+    principalstress(:,i+1+count) = Tprin*StressValues(:,2);
     count = count+1;
 end
