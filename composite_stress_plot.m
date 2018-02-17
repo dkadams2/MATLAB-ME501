@@ -1,3 +1,7 @@
+%Plots the given stress or strain throughout the laminate. 
+%z is the value for each distance from the center. Its length will be 2x
+%the number of plies and will include each z value twice, except for the
+%outer most distances.
 function composite_stress_plot(z, AllStress)
 
 subplot(3,1,1); plot(AllStress(1,:), z)

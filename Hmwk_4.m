@@ -28,7 +28,7 @@ ABD_mat_8 = buildABD_mat(E1, E2, v12, v21, G12, z_8, ply_angles_8, num_plies)
 Stress_Res = [0; 0; 0; 12.84; 3.92; 2.8]; %Nm/m
 num_plies = 6;
 ply_angles_9 = [30, -30, 0, 0, -30, 30];
-z_9 = [-.00045, -.0003, -.00015, 0, .00015, .0003, .00045]; %in mm
+z_9 = [-.45, -.3, -.15, 0, .15, .3, .45]; %in mm
 
 %Call function to create ABD matrix
 ABD_mat_9 = buildABD_mat(E1, E2, v12, v21, G12, z_9, ply_angles_9, num_plies);

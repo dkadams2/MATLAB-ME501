@@ -1,4 +1,8 @@
 %Function to build the ABD matrix
+%ply_angles is a vector that holds the angle for each ply (is the same size
+%as the number of plies
+%z is the singular value of distances from center of composite, but it
+%includes the center, so it will be length number of plies + 1
 function [ABD_mat] = buildABD_mat(E1, E2, v12, v21, G12, z, ply_angles, num_plies)
 
 %loop to get the Qbar matrices for each ply
