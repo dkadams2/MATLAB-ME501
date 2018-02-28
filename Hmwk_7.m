@@ -23,5 +23,5 @@ for n=1:2:5
     SigmaYZsum = SigmaYZsum + ((-1)^((n-1)/2)*sin(n*pi*x/(2*h))*cosh(n*pi*y/(2*h)))/(n^2*cosh(n*pi*b/(2*h)));
 end
 
-SigmaXZ = (-16*Gtheta*h/(pi^2))*SigmaXZsum;
-SigmaYZ = 2*Gtheta*x-(16*Gtheta*h/(pi^2))*SigmaYZsum;
+SigmaXZ = (-16*Gtheta*h/(pi^2))*SigmaXZsum; %Pa
+SigmaYZ = 2*Gtheta*x-(16*Gtheta*h/(pi^2))*SigmaYZsum; %Pa
