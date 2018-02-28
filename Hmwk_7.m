@@ -11,8 +11,8 @@ h = .0125; %m
 b = .025; %m
 
 %x and y will change depending on the point being evaluated. 
-x = 0; %A = h; B = h/2; C = 0
-y = b; %A = 0; B = b/2; C = b
+x = h/2; %A = h; B = h/2; C = 0
+y = b/2; %A = 0; B = b/2; C = b
 
 %Create the for loop for the summation
 SigmaXZsum = 0;
@@ -24,4 +24,4 @@ for n=1:2:5
 end
 
 SigmaXZ = (-16*Gtheta*h/(pi^2))*SigmaXZsum;
-SigmaYZ = (2*Gtheta*x-(-16*Gtheta*h/(pi^2)))*SigmaYZsum;
+SigmaYZ = 2*Gtheta*x-(16*Gtheta*h/(pi^2))*SigmaYZsum;
